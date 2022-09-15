@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Bootcamp;
+use GuzzleHttp\Psr7\Response;
 
 class bootcampControler extends Controller
 {
@@ -13,7 +15,9 @@ class bootcampControler extends Controller
      */
     public function index()
     {
-        echo"aqui se van a mostrar todos los bootcamps";
+        //return Bootcamp::all();
+        return Response()->json(["success"=>true,
+                                 "data"=> Bootcamp::all()], 200);
     }
 
     /**
@@ -26,7 +30,10 @@ class bootcampControler extends Controller
     {
 
 
-        echo"aqui se va a guardar un nuevo bootcamp";
+        //verificar los datos del payload;
+        //return Bootcamp::create ($request->all());
+        return Response()->json(["success"=>true,
+                                 "data"=> Bootcamp::create($request->all())], 200);
 
     }
 
@@ -38,7 +45,9 @@ class bootcampControler extends Controller
      */
     public function show($id)
     {
-        echo"aqui se va a mostrar el bootcamp cuyo id es $id" ;
+        //return Bootcamp::Find($id);
+        return Response()->json(["success"=>true,
+                                 "data"=> Bootcamp::find($id)], 200);
     }
 
     /**
@@ -50,7 +59,14 @@ class bootcampControler extends Controller
      */
     public function update(Request $request, $id)
     {
-        echo"Aqui se va a ctualizar un bootcamp cuyo id es $id";
+       //1.seleccionar el bootcamp a actualizar
+       $b= Bootcamp::find($id);
+       //2.Actualizar ese bootcamp
+       $b->update($request->all());
+       //3.Enviar el bootcampa para apreciar los cambios
+      // return $b;
+      return Response()->json(["success"=>true,
+                                 "data"=> $b], 200);
     }
 
     /**
@@ -61,6 +77,13 @@ class bootcampControler extends Controller
      */
     public function destroy($id)
     {
-        echo"Aqui se va a eliminar el boocamp cuyo id es $id";
+        //1.seleccionar el bootcamp a eliminar 
+       $b= Bootcamp::find($id);
+       //2.eliminar ese bootcamp
+       $b->delete();
+       //3.Enviar el bootcampa para apreciar los cambios
+       //return $b;
+       return Response()->json(["success"=>true,
+                                 "data"=> $b] , 200);
     }
 }
