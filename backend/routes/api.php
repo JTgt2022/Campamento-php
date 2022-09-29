@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\bootcampControler;
+use App\Http\Controllers\coursescontroler;
+use App\Http\Controllers\reviewscontroler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('bootcamps',
 bootcampControler::class);
+
+Route::apiResource('courses',
+coursescontroler::class);
+
+Route::apiResource('reviews',
+reviewscontroler::class);
